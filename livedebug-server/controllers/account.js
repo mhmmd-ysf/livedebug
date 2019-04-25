@@ -13,9 +13,12 @@ class AccountController {
   }
 
   static newAccount(req, res) {
-    let acc = null;
+    // console.log({masuk: 'controlleraccount.new', balance: req.body.balance})
+    // console.log({headers: req.headers, user: req.user})
+    let acc = {};
+    // console.log('null')
 
-    if (req.body.hasOwnProperty('balance')) {
+    if (req.body.balance) {
       acc = {
         balance: req.body.balance,
         userId: req.user._id
@@ -25,9 +28,11 @@ class AccountController {
         userId: req.user._id
       }
     }
+    // console.log(acc)
 
     Account.create(acc)
      .then(account => {
+       console.log({account})
        res.status(201).json(account);
      })
      .catch(err => {

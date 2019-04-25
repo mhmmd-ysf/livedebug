@@ -30,5 +30,10 @@ export default new Router({
       name: 'favorite',
       component: () => import('./views/Favorite.vue')
     }
+    // {
+    //   path: '/:id',
+    //   name: 'favorite',
+    //   component: () => import('./views/Favorite.vue')
+    // }
   ]
 })

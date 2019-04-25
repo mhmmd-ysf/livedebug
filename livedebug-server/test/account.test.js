@@ -28,20 +28,15 @@ before(done => {
         id: user._id,
         email: user.email
      };
-
      token = jwt.sign(signUser);
+    //  console.log({signUser, token})
+      let semmi = {
+        email: 'semmi@mail.com',
+        password: 'semsem',
+      }
+
+      return User.create(semmi)
    })
-   .catch(err => {
-     throw err
-   })
-
-
-   let semmi = {
-     email: 'semmi@mail.com',
-     password: 'semsem',
-   }
-
-   User.create(semmi)
     .then(user => {
       let signUser = {
          id: user._id,
@@ -49,8 +44,14 @@ before(done => {
       };
 
       foreignToken = jwt.sign(signUser);
+    //  console.log({signUser, token})
       done()
     })
+   .catch(err => {
+     throw err
+   })
+
+
     .catch(err => {
       throw err
     })
@@ -65,7 +66,7 @@ after(done => {
 })
 
 describe('Account', function() {
-  describe('POST /accounts/new ', function() {
+  describe.only('POST /accounts/new ', function() {
     it('should return status code 201 with response body created account', function(done) {
       let account = {
         balance: 350000

@@ -21,13 +21,14 @@
       </div>
     </div>
 
-    <routing-view @myFavorite="myFavorite"/>
+    <router-view @myFavorite="myFavorite"/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import User from '@/components/User.vue'
+import { mapState } from 'vuex'
 
 export default {
   name: 'home',
@@ -44,6 +45,7 @@ export default {
 
   methods: {
     fetchUser () {
+      console.log({dari: 'home fetch user'})
       this.$store.dispatch('fetchUsers')
     },
 
@@ -52,20 +54,27 @@ export default {
     },
 
     myFavorite (data) {
-      this.$emit('myFavorite', data)
+      this.$emit('favorites', data)
     }
   },
 
   computed: {
-    users () {
-      return this.$store.state.users
-    }
+    // users () {
+    //   return this.$store.state.users
+    // }
+    ...mapState(['users', 'projects', 'collections']),
   },
 
   mounted () {
-    this.fetchUser().then(data => {
-      this.isLoading = false
-    })
+    // console.log({dari: 'home mounted'})
+    this.fetchUser()
+      // .then(data => {
+      //   console.log({dari: 'home mounted then'})
+      //   this.isLoading = false
+      // })
+      // .catch(err => {
+      //   console.log({err})
+      // })
   }
 }
 </script>

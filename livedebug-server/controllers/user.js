@@ -26,13 +26,15 @@ class UserController {
 
   static login(req, res) {
     User
-     .findOne(req.body.email)
+     .findOne({email: req.body.email})
      .then(user => {
+      // console.log({masuk: 'user', user})
        if (user) {
          if (regis.checkPassword(req.body.password, user.password)) {
            let signUser = {
               id: user._id,
-              email: user.email
+              email: user.email,
+              // accountNumber: user.accountNumber
            };
 
            let token = jwt.sign(signUser);
@@ -56,10 +58,14 @@ class UserController {
      .findOneAndUpdate({
        email: req.body.email,
        verificationCode: req.body.verificationCode
+     },{
+       $set: { email: 'true@mail.com' }
      }, {
-       $set: { isVerified: true }
-     })
+       new: true
+     }
+     )
      .then(user => {
+        console.log({masuk:"verify", user})
        if(user) {
          res.status(200).json(user);
        } else {
