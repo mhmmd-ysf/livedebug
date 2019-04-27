@@ -10,11 +10,11 @@ const transactionSchema = new Schema({
     require: [ true, 'amount is required']
   },
   from: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Account',
   },
   to: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Account',
     require: [ true, 'Destination account must fill']
   }
@@ -23,7 +23,7 @@ const transactionSchema = new Schema({
 transactionSchema.pre('save', function(next) {
   Account.findOne({
     _id: this.from,
-    balance: { $lte: Number(this.amount)  }
+    balance: { $gte: Number(this.amount) }
   })
   .then(updated => {
     if (updated) {
@@ -43,7 +43,6 @@ transactionSchema.pre('save', function(next) {
   .then(updated => {
     updated.balance += this.amount;
     updated.save();
-
     next();
   })
   .catch(err => {

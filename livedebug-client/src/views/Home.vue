@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto pt-5">
-    <div class="flex flex-col justify-center" v-if="!isLoading">
+    <div class="flex flex-col justify-center" v-if="isLoading">
       <img class="w-full h-64 self-center text-center mb-4" src="../assets/loading.svg">
 
       <span class="text-center text-grey-dark font-normal text-xl">Waiting data to be loaded</span>

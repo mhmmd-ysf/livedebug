@@ -3,7 +3,7 @@ const Account = require('../models/account');
 class AccountController {
   static findAccounts(req, res) {
     Account.findOne({ accountNumber: req.params.accountNumber })
-     .populate('user')
+     .populate('userId')
      .then(account => {
        res.status(200).json(account);
      })
@@ -13,10 +13,7 @@ class AccountController {
   }
 
   static newAccount(req, res) {
-    // console.log({masuk: 'controlleraccount.new', balance: req.body.balance})
-    // console.log({headers: req.headers, user: req.user})
     let acc = {};
-    // console.log('null')
 
     if (req.body.balance) {
       acc = {
@@ -28,11 +25,9 @@ class AccountController {
         userId: req.user._id
       }
     }
-    // console.log(acc)
 
     Account.create(acc)
      .then(account => {
-       console.log({account})
        res.status(201).json(account);
      })
      .catch(err => {

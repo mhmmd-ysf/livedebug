@@ -59,13 +59,13 @@ class UserController {
        email: req.body.email,
        verificationCode: req.body.verificationCode
      },{
-       $set: { email: 'true@mail.com' }
+       $set: { isVerified: true }
      }, {
        new: true
      }
      )
      .then(user => {
-        console.log({masuk:"verify", user})
+        // console.log({masuk:"verify", user})
        if(user) {
          res.status(200).json(user);
        } else {

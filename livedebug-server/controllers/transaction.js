@@ -8,15 +8,15 @@ class TransactionController {
       to: req.transferToId
     })
     .then(success => {
-      Transaction.find({
-        _id: success._id
-      })
-      .populate({
-        path: 'from',
-        populate: {
-          path: 'userId'
-        }
-      })
+      return Transaction.findOne({
+           _id: success._id
+         })
+         .populate({
+           path: `from`,
+           populate: {
+             path: `userId`
+           }
+         })
     })
     .then(trans => {
       res.status('201').json(trans);

@@ -29,7 +29,6 @@ before(done => {
         email: user.email
      };
      token = jwt.sign(signUser);
-    //  console.log({signUser, token})
       let semmi = {
         email: 'semmi@mail.com',
         password: 'semsem',
@@ -44,7 +43,6 @@ before(done => {
       };
 
       foreignToken = jwt.sign(signUser);
-    //  console.log({signUser, token})
       done()
     })
    .catch(err => {
@@ -66,7 +64,7 @@ after(done => {
 })
 
 describe('Account', function() {
-  describe.only('POST /accounts/new ', function() {
+  describe('POST /accounts/new ', function() {
     it('should return status code 201 with response body created account', function(done) {
       let account = {
         balance: 350000
